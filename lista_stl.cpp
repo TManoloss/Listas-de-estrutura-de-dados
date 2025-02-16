@@ -41,25 +41,73 @@ vector<int> list_concat(list<int>& list1,list<int>& list2){
     result.insert(result.end(), list1.begin(), list1.end());
 
     result.insert (result.end(), list2.begin(), list2.end());
+
+    return result;
+}
+//Exercicio 5
+bool check_brackets(string expression){
+    stack<char> pilha;
+
+    for (char c : expression) {
+        if (c == '(' || c == '[' || c == '{') {
+            pilha.push(c);  
+        } 
+        else if (c == ')' || c == ']' || c == '}') {
+            if (pilha.empty()) {
+                return false;  
+            }
+
+            char topo = pilha.top();
+            pilha.pop();
+
+            if ((c == ')' && topo != '(') ||
+                (c == ']' && topo != '[') ||
+                (c == '}' && topo != '{')) {
+                return false;  
+            }
+        }
+    }
+
+    return pilha.empty();
 }
 
 
 int main(){
-    int v[] = {1, 2, 3, 4, 5};
-    int n = sizeof(v)/sizeof(v[0]);
+    // int v[] = {1, 2, 3, 4, 5};
+    // int n = sizeof(v)/sizeof(v[0]);
 
     // vector<int> vec = vet_to_vector(v, n);
     // list<int> minhaLista = vet_to_flist(v, n);
-    stack<int> minhaPilha = vet_to_stack(v, n);
+    // stack<int> minhaPilha = vet_to_stack(v, n);
     
     // for(int i : minhaLista){
     //     cout << i << " ";
     // }
 
-    while(!minhaPilha.empty()){
-        cout << minhaPilha.top() << " ";
-        minhaPilha.pop();
+    // while(!minhaPilha.empty()){
+    //     cout << minhaPilha.top() << " ";
+    //     minhaPilha.pop();
+    // }
+    // cout << "\n";
+    // return 0;
+    // std::list<int> f1 = {1, 2, 3, 4};
+    // std::list<int> f2 = {5, 6};
+
+    // std::vector<int> vec = list_concat(f1, f2);
+
+    // // Exibir os elementos do vetor resultante
+    // for (int num : vec) {
+    //     std::cout << num << " ";
+    // }
+    std::string expressao;
+    std::cout << "Digite uma expressão: ";
+    std::getline(std::cin, expressao);
+
+    if (check_brackets(expressao)) {
+        std::cout << "Expressão correta!" << std::endl;
+    } else {
+        std::cout << "Expressão incorreta!" << std::endl;
     }
-    cout << "\n";
+
     return 0;
 }
